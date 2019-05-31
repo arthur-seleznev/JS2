@@ -1,0 +1,32 @@
+header {
+    margin: 0 auto;
+    width: 1140px;
+    height: 80px;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: #4C4C4C;
+}
+
+.btn-cart {
+    width: 100px;
+    height: 40px;
+    margin: 20px;
+    border: 2px solid red;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.btn-cart:hover {
+    background-color: red;
+    color: #ffffff;
+}
+
+.products {
+    margin: 0 auto;
+    width: 1140px;
+    display: flex;
+    justify-content: space-around;
+}
