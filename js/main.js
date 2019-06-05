@@ -11,7 +11,7 @@ class ProductsList {
     }
 
     totalAmount() {
-        return this.allProducts.reduce((x, y) => x + y.price, 0);
+        return this.allProducts.reduce((x, y) => x + y.price, 0); // добавлен метод подсчета суммарной стоимости товаров в каталоге
     }
 
     _fetchProducts(){
@@ -54,6 +54,31 @@ class Cart {
     constructor(container = ".cart"){
         this.container = container;
         this.items = []; // массив товаров
+        this.discount = 0; // персональная скидка
+
+    }
+
+    addItem(productItem, qty = 1) { //добавление товара в корзину из каталога, по умолчанию 1 штуки
+
+    }
+
+    removeItem(productItem, deleteFullQty = false) { // удаление товара из корзины, по умолчанию 1 штуки
+
+    }
+
+    calcTotalQty() { //посчитать суммарное количество товаров в корзине
+
+    }
+
+    calcTotalAmount() { //посчитать суммарную стоимость товаров в корзине
+
+    }
+
+    render() { // отрисовка корзины на странице
+
+    }
+
+    applyDiscount(discount) { // применить скидку к суммарной стоимости
 
     }
 }

@@ -14,6 +14,22 @@ class Hamburger {
         idx === -1 ? console.log("Топпинг отсутствует") : this.toppings.splice(idx, 1);
     }
 
+    calcPrice(data) {
+        let price = data.find(x => x.ingredient === this.base).price + data.find(x => x.ingredient === this.stuffing).price;
+        for(let topping of this.toppings) {
+            price += data.find(x => x.ingredient === topping).price;
+        }
+        return price;
+    }
+
+    calcCalories(data) {
+        let calories = data.find(x => x.ingredient === this.base).calories + data.find(x => x.ingredient === this.stuffing).calories;
+        for(let topping of this.toppings) {
+            calories += data.find(x => x.ingredient === topping).calories;
+        }
+        return calories;
+    }
+
 
 }
 
@@ -24,7 +40,7 @@ let data = [
     {ingredient: "salad", price: 20, calories: 5},
     {ingredient: "potato", price: 15, calories: 10},
     {ingredient: "spices", price: 15, calories: 0},
-    {ingredient: "mayonnaise", price: 50, calories: 20}
+    {ingredient: "mayonnaise", price: 20, calories: 5}
 ];
 
 const burger = new Hamburger("big", "cheese");
@@ -32,6 +48,8 @@ burger.addTopping("spices");
 burger.addTopping("spices");
 burger.removeTopping("mayonnaise");
 burger.addTopping("mayonnaise");
-burger.removeTopping("mayonnaise");
+
 
 console.log(burger.toppings);
+console.log(burger.calcPrice(data));
+console.log(burger.calcCalories(data));
