@@ -78,7 +78,7 @@ class Cart {
 
     }
 
-    applyDiscount(discount) { // применить скидку к суммарной стоимости
+    applyDiscount(discount) { // применить скидку к суммарной стоимости корзины
 
     }
 }
