@@ -1,4 +1,4 @@
-class Hamburger {
+class Hamburger { // бургерная
     constructor(base, stuffing) {
         this.base = base;
         this.stuffing = stuffing;
