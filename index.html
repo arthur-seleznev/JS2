@@ -3,16 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Shop</title>
+    <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header>
     <button class="btn-cart" type="button">Корзина</button>
 </header>
+<div class="cart hidden">
+    <div class="cart-totals"></div>
+</div>
 <main>
     <div class="products"></div>
+    <div class="feedback-block">
+        <h3>Форма обратной связи</h3>
+        <form method="post" action="#" class="feedback-form">
+                <label for="feedback-firstname">Имя</label>
+                <input name="name" id="feedback-firstname" type="text">
+                <label>Телефон</label>
+                <input name="tel" id="feedback-usertel" type="text">
+                <label for="feedback-usermail">E-mail</label>
+                <input name="mail" id="feedback-usermail" type="text">
+                <label for="feedback-comment">Комментарий</label>
+                <textarea name="feedback-comment" id="feedback-comment" cols="30" rows="10"></textarea>
+            <button type="submit" class="feedback-submit">Отправить</button>
+        </form>
+    </div>
+
 </main>
 <script defer src="js/main.js"></script>
-<script defer src="js/burgers.js"></script>
 </body>
 </html>
