@@ -7,30 +7,63 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
-    <button class="btn-cart" type="button">Корзина</button>
-</header>
-<div class="cart hidden">
-    <div class="cart-totals"></div>
-</div>
-<main>
-    <div class="products"></div>
-    <div class="feedback-block">
-        <h3>Форма обратной связи</h3>
-        <form method="post" action="#" class="feedback-form">
-                <label for="feedback-firstname">Имя</label>
-                <input name="name" id="feedback-firstname" type="text">
-                <label>Телефон</label>
-                <input name="tel" id="feedback-usertel" type="text">
-                <label for="feedback-usermail">E-mail</label>
-                <input name="mail" id="feedback-usermail" type="text">
-                <label for="feedback-comment">Комментарий</label>
-                <textarea name="feedback-comment" id="feedback-comment" cols="30" rows="10"></textarea>
-            <button type="submit" class="feedback-submit">Отправить</button>
+<div id="app">
+    <header>
+        <div class="logo">Магазин</div>
+        <button class="btn-cart" type="button" @click="isCartVisible = !isCartVisible">Корзина</button>
+        <form action="#" method="post" @submit.prevent="catalogFilter(searchLine)" class="search-form">
+            <input type="text" v-model="searchLine" class="search-field">
+            <button class="btn-search" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
         </form>
+    </header>
+    <div v-if="isCartVisible" class="cart">
+        <div class="cart-product" v-for="item of cartItems" :key="item.product_id">
+            <img :src="imgCatalog" alt="item.product_name" class="cart-img">
+            <p class="cart-product-name">{{ item.product_name }}</p>
+            <p class="cart-product-price">{{ item.price }}</p>
+            <div class="qty-selection">
+                <button class="btn-qty minus" @click="item.quantity === 1 ? item.quantity = 1 : item.quantity--">-
+                </button>
+                <p class="qty-caption">{{ item.quantity }}</p>
+                <button class="btn-qty plus" @click="item.quantity++">+</button>
+            </div>
+            <p class="cart-product-amount">{{ item.price*item.quantity }}</p>
+            <button class="btn-qty deleteAll" @click="removeFromCart(item)">X</button>
+        </div>
+        <div class="empty-cart" v-if="!cartItems.length">Корзина пуста</div>
+        <div class="cart-totals" v-else>
+            <p>Всего товаров: {{ calcCartQty }}<br>
+                Общая стоимость: {{ calcCartPrice }}</p>
+        </div>
     </div>
-
-</main>
+    <main>
+        <div class="products">
+            <div class="product-item" v-for="product of products" v-if="!isFilterOn || filtered.includes(product)" :key="product.id_product">
+                <img :src="imgCatalog" :alt="product.product_name">
+                <div class="desc">
+                    <h3>{{ product.product_name }}</h3>
+                    <p>{{ product.price }}</p>
+                    <div class="qty-selection">
+                        <button class="btn-qty minus"
+                                @click="product.quantity === 1 ? product.quantity = 1 : product.quantity--">-
+                        </button>
+                        <p class="qty-caption">{{ product.quantity }}</p>
+                        <button class="btn-qty plus"
+                                @click="product.quantity === 99 ? product.quantity = 99 : product.quantity++">+
+                        </button>
+                    </div>
+                    <button class="buy-btn" @click="addToCart(product)">Купить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="js/vue.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+        integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+        crossorigin="anonymous"></script>
 <script defer src="js/main.js"></script>
 </body>
 </html>
