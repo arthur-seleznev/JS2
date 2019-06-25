@@ -2,73 +2,14 @@ const API = `https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 
 const app = new Vue({
     el: '#app',
-    data: {
-        productsUrl: '/catalogData.json',
-        products: [],
-        filtered: [],
-        searchLine: '',
-        isFilterOn: false,
-        imgCatalog: `https://placehold.it/200x150`,
-
-
-        cartUrl: '/getBasket.json',
-        cartItems: [],
-        isCartVisible: false,
-    },
-
-    computed: {
-        calcCartQty() {
-            return this.cartItems.reduce((totalQty, item) => totalQty + item.quantity, 0);
-        },
-
-        calcCartPrice() {
-            return this.cartItems.reduce((totalAmount, item) => totalAmount + item.quantity * item.price, 0);
-        }
-    },
-
     methods: {
         getData(url) {
             return fetch(url ? url : `${API}/${this.url}`)
                 .then(result => result.json())
-                .catch(error => console.log(error));
+                .catch(error => this.$refs.error.setStr(error));
         },
-
-        removeFromCart(item) {
-            this.cartItems.splice(this.cartItems.indexOf(item), 1);
-        },
-
-        addToCart(item) {
-            let find = this.cartItems.find(find => find.id_product === item.id_product)
-            if (find) {
-                find.quantity += item.quantity;
-            } else {
-                this.cartItems.push(item);
-            }
-        },
-
-        catalogFilter(value) {
-            this.isFilterOn = true;
-            const regexp = new RegExp(value, 'i');
-            this.filtered = this.products.filter(el => regexp.test(el.product_name));
-        }
     },
 
-    mounted() {
-        this.getData(API + this.productsUrl)
-            .then(data => {
-                for (el of data) {
-                    const product = Object.assign(el, {quantity: 1});
-                    this.products.push(product);
-                }
-            });
-
-        this.getData(API + this.cartUrl)
-            .then(data => {
-                for (el of data.contents) {
-                    this.cartItems.push(el);
-                }
-            });
-    }
 });
 
 
